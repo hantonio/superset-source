@@ -45,10 +45,13 @@ RUN cd /app \
 ######################################################################
 # Node stage to deal with static asset construction
 ######################################################################
-FROM node:18 AS superset-node
+FROM node:16 AS superset-node
 
 ARG NPM_VER=6
 RUN npm install -g npm@${NPM_VER}
+RUN npm install --save-dev jest && \
+    npm install --save-dev jest-mock-console && \
+    npm install --save-dev mapbox-gl
 
 ARG NPM_BUILD_CMD="build"
 ENV BUILD_CMD=${NPM_BUILD_CMD}
@@ -61,9 +64,6 @@ COPY ./superset-frontend /app/superset-frontend
 RUN /frontend-mem-nag.sh \
         && cd /app/superset-frontend \
         && npm ci
-
-RUN npm install --save-dev jest-mock-console
-RUN npm install --save-dev mapbox-gl
 
 # This seems to be the most expensive step
 RUN cd /app/superset-frontend \
@@ -107,6 +107,7 @@ COPY superset /app/superset
 COPY setup.py MANIFEST.in README.md /app/
 RUN cd /app \
         && chown -R superset:superset * \
+        && pip install pybabel \
         && pip install -e . \
         && flask fab babel-compile --target superset/translations
 

@@ -87,6 +87,7 @@ import venezuela from './countries/venezuela.geojson';
 import ecuador from './countries/ecuador.geojson';
 
 export const countries = {
+  argentina,
   austria,
   australia,
   belgium,
@@ -94,9 +95,12 @@ export const countries = {
   bulgaria,
   burundi,
   canada,
+  chile,
   china,
+  colombia,
   cyprus,
   denmark,
+  ecuador,
   egypt,
   estonia,
   ethiopia,
@@ -149,12 +153,8 @@ export const countries = {
   uruguay,
   usa,
   zambia,
-  vietnam,
-  argentina,
   venezuela,
-  colombia,
-  chile,
-  ecuador
+  vietnam,
 };
 
 export const countryOptions = Object.keys(countries).map(x => {

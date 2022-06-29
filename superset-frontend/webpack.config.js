@@ -356,18 +356,9 @@ const config = {
         use: ['react-hot-loader/webpack'],
       },
       {
-        test: /\.css$/,
-        include: [APP_DIR, /superset-ui.+\/src/],
-        use: [
-          isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-        ],
-      },
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },	    
       {
         test: /\.less$/,
         include: APP_DIR,
